@@ -1,4 +1,5 @@
 from baralho import Baralho, BaralhoException
+from PilhaEncadeada import Pilha
 from carta import Carta
 from jogador import Jogador
 

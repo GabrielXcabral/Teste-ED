@@ -1,23 +1,26 @@
+from PilhaEncadeada import Pilha
+
 class Jogador:
-    def __init__(self, nome, mao):
+    def __init__(self, nome, maoPilha):
         self.nome = nome
-        self.mao = mao
+        self.maoPilha = maoPilha
+        self.cemiterio = Pilha()
+
+
+    def colocaCartaNoCemiterio(self, cartaGanha):
+        self.cemiterio.empilha(cartaGanha)
 
     def carta_do_jogador(self):
-        carta = self.mao.remove()
-        print("{} colocou: {}".format(self.nome,carta))
+        carta = self.maoPilha.desempilha()
+        print("{} colocou: {}".format(self.nome, carta))
         print("\n")
         return carta
 
     def pegar_carta(self):
-        cartas_de_empate = []
-        if len(self.mao.x)<3:
-            return self.mao.x
-        else:
-            for x in range(3):
-                cartas_de_empate.append(self.mao.x.pop())
-                return cartas_de_empate
-
+        pass
     
     def tem_carta(self):
-        return len(self.mao.x) != 0
+        return self.maoPilha.estaVazia() == False
+
+    def __str__(self):
+        return "Jogador: " + self.nome + ", Cartas na mão: " + str(self.maoPilha.tamanho()) +  ", Cartas no cemiterio: " + str(self.cemiterio.tamanho()) + ", Cartas na mão: " + self.maoPilha.__str__()

@@ -1,41 +1,51 @@
 from carta import Carta
+from PilhaEncadeada import Pilha
 import random
 
 class Baralho:
     def __init__(self):
         numeracao = ["As", 2,  3, 4, 5, 6, 7, 8, 9, 10, "valete", "dama", "rei" ]
         nipe = ["Ouro","Espada", "Paus", "Copas"]
-        self.listaBaralho = list()
+        self.pilhaBaralho = Pilha()
+        listaCartas = list()
+
         for idx in nipe:
             for id in numeracao:
-                self.listaBaralho.append (Carta(id, idx))
-        self.shuffle()
-    
+                listaCartas.append(Carta(id, idx))
+        random.shuffle(listaCartas)
+
+        for carta in listaCartas:
+            self.pilhaBaralho.empilha(carta)
+
 
     def __len__(self):
-        return len(self.listaBaralho)
-
-    def shuffle(self): #Embaralha as cartas
-         random.shuffle(self.listaBaralho)
+        return self.pilhaBaralho.tamanho()
 
     def __str__(self):
-        saida = ''
-        for carta in self.listaBaralho:
-            saida += carta.__str__() + '\n'
-        return saida
+        return self.pilhaBaralho.__str__()
     
     def dividir_cartas(self): #dividi as cartas
-        return (self.listaBaralho[:26],self.listaBaralho[26:])
+        primeiraMetade = Pilha()
+        segundaMetade = Pilha()
+        while self.pilhaBaralho.estaVazia() == False:
+            cartaTirada = self.pilhaBaralho.desempilha()
+            if self.pilhaBaralho.tamanho() >= 26:
+                segundaMetade.empilha(cartaTirada)
+            else:
+                primeiraMetade.empilha(cartaTirada)
+        return (primeiraMetade, segundaMetade)
+
+
 
     def temCarta(self):  #definindo o baralho ter ou n carta. Isso vai poder ser colocado no while, pra dizer quando ele parar
-        if len(self.listaBaralho) > 0:
+        if self.pilhaBaralho.tamanho() > 0:
             return True
         else:
             return False
        
     def retirarCarta(self):
         try:
-            return self.listaBaralho.pop(-1) 
+            return self.pilhaBaralho.desempilha()
         except IndexError :                  
             raise BaralhoException ('Não há cartas')
 

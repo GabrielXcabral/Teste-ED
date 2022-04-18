@@ -26,6 +26,7 @@ class Pilha:
     def __init__(self):
         self.__head = None
         self.__tamanho = 0
+        self.__fimDaPilha = None
         
 
     def estaVazia(self):
@@ -69,8 +70,18 @@ class Pilha:
     def empilha(self, valor):
         novo = Node(valor)
         novo.prox = self.__head
+        if self.estaVazia():
+            self.__fimDaPilha = novo
         self.__head = novo
         self.__tamanho += 1
+
+    def insereNoFimDaPilha(self, valor):
+        novoUltimo = Node(valor)
+        antigoUltimo = self.__fimDaPilha
+        antigoUltimo.prox = novoUltimo
+        self.__fimDaPilha = novoUltimo
+        self.__tamanho += 1
+
 
 
     def desempilha(self):

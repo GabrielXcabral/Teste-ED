@@ -5,7 +5,7 @@ from jogador import Jogador
 
 # Chamado quando um jogador ganha uma rodada
 def ganharCartas(jogador, carta1, carta2):
-    print(f'{jogador.nome} ganhou!')
+    print(f'{jogador.nome} ganhou!\n')
     jogador.botarCartaEmbaixo(carta1)
     jogador.botarCartaEmbaixo(carta2)
 

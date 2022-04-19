@@ -1,3 +1,6 @@
+from ast import While
+from re import S
+from tkinter import E, N
 from baralho import Baralho, BaralhoException
 from PilhaEncadeada import Pilha
 from carta import Carta
@@ -39,15 +42,32 @@ while querJogarNovamente == "S":
     print("----------------------------------------------------------------------------------- \n")
 
     #Criando dois jogadores
+
+    def perguntaNome(numeroDoJogador):
+        nome=input(f"Digite o nome do player {numeroDoJogador}: ")
+        if len(nome) == 0:
+            raise AssertionError('Nome vazio')
+        return nome
+
     print("NOME DOS JOGADORES: \n")
 
-    jogador2 = Jogador("Computador", mão2)
-    print(f"Nome do player 2: {jogador2.nome} \n")
+    while True:
+        try:
+            nome = perguntaNome(1)
+            jogador1 = Jogador(nome, mão1)
+            break
+        except AssertionError: 
+            print('O usuário digitou um nome inválido')
+            continue
 
-
-    nome=input("Digite o nome do player 1: ")
-    jogador1 = Jogador(nome, mão1)
-
+    while True:  
+        try:
+            nome2 = perguntaNome(2)
+            jogador2 = Jogador(nome2, mão2)
+            break
+        except Exception: 
+            print('O usuário digitou um nome inválido')
+            continue
 
     print("----------------------------------------------------------------------------------- \n")
 
@@ -62,7 +82,7 @@ while querJogarNovamente == "S":
     #Jogo continua enquanto os dois jogadores tiverem pelo menos 1 carta
     while jogador1.tem_carta() and jogador2.tem_carta() and total_rounds < 100:
         print("\n")
-        input("Aperte ENTER para jogar a proxima rodada\n")
+        input("Aperte QUALQUER TECLA para jogar a proxima rodada\n")
         print(f"Hora de uma nova rodada #{total_rounds + 1}!!! \n")
         print("Jogue uma carta!")
         total_rounds += 1
@@ -112,4 +132,13 @@ while querJogarNovamente == "S":
     else:
         print("O JOGO TERMINOU EMPATADO")
 
-    querJogarNovamente = input("Quer jogar novamente (S/N)?").upper()
+    while True:
+        try:
+            querJogarNovamente = input("Quer jogar novamente (S/N)?").upper()
+            assert querJogarNovamente == "S" or querJogarNovamente == "N"
+            break
+        except AssertionError: 
+            print('Digite uma tecla válida')
+            continue
+
+print("Até logo!")

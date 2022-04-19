@@ -82,7 +82,7 @@ while querJogarNovamente == "S":
     #Jogo continua enquanto os dois jogadores tiverem pelo menos 1 carta
     while jogador1.tem_carta() and jogador2.tem_carta() and total_rounds < 100:
         print("\n")
-        input("Aperte QUALQUER TECLA para jogar a proxima rodada\n")
+        input("Aperte ENTER para jogar a proxima rodada\n")
         print(f"Hora de uma nova rodada #{total_rounds + 1}!!! \n")
         print("Jogue uma carta!")
         total_rounds += 1
